@@ -1,0 +1,14 @@
+<Snaps>
+    <Snap label="equals &#39;example&#39;">
+        "example"
+    </Snap>
+    <Snap label="should be something">
+        {
+            "MoreThings": [
+                "a",
+                "b",
+                "c"
+            ]
+        }
+    </Snap>
+</Snaps>
