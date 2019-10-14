@@ -63,7 +63,7 @@ Contributions are absolutely welcome!
 - Make sure it passes the linter
 
   ```bash
-  make test
+  make lint
   ```
 
 - Open a pull request
