@@ -92,15 +92,12 @@ func WithLabel(label string) Comparison {
 		}
 	}
 
-	var s *snaps.Snaps
-	if len(snapshotData) > 0 {
-		s = snaps.Parse(snapshotData)
-	}
+	s := snaps.New(snapshotData)
 
 	foundSnap, err := s.Find(label)
 	if err != nil {
 		switch err.(type) {
-		case errors.ErrSnapNotFound:
+		case errors.ErrSnapsEmpty, errors.ErrSnapNotFound:
 			foundSnap = snaps.Snap{Label: label}
 			if err := s.Add(foundSnap); err != nil {
 				panic(err)

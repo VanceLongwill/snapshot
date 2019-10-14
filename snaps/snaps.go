@@ -3,6 +3,7 @@ package snaps
 import (
 	"encoding/xml"
 	"fmt"
+
 	"github.com/vancelongwill/snapshot/errors"
 )
 
@@ -12,19 +13,22 @@ type Snaps struct {
 	Snaps   []Snap   `xml:"Snap"`
 }
 
-// Parse reads byte data from the snapshot file
-func Parse(raw []byte) *Snaps {
+// New reads in byte snapshot data
+func New(raw []byte) *Snaps {
 	var snaps Snaps
+	if len(raw) == 0 {
+		return &snaps
+	}
 	err := xml.Unmarshal(raw, &snaps)
 	if err != nil {
-		panic(err)
+		panic(fmt.Sprintf("Unable to parse snapshot data: %s", err.Error()))
 	}
 	return &snaps
 }
 
 // Serialize converts a set of snapshots to byte data
 func (s *Snaps) Serialize() []byte {
-	bytes, err := xml.MarshalIndent(&s.Snaps, "", "    ")
+	bytes, err := xml.MarshalIndent(&s, "", "    ")
 	if err != nil {
 		panic(err)
 	}
