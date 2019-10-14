@@ -31,8 +31,12 @@ func (s *Snaps) Serialize() []byte {
 	return bytes
 }
 
+func (s *Snaps) isEmpty() bool {
+	return s.Snaps == nil || len(s.Snaps) == 0
+}
+
 func (s *Snaps) findIndex(label string) (int, error) {
-	if len(s.Snaps) == 0 {
+	if s.isEmpty() {
 		return -1, errors.SnapsEmpty(
 			fmt.Errorf("Can't find snap with label '%s' in empty list", label))
 	}
